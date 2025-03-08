@@ -3,14 +3,16 @@ import os
 import time
 from typing import List, Optional
 
+from dotenv import load_dotenv
 from langchain.agents import AgentExecutor, create_tool_calling_agent
 from langchain_anthropic import ChatAnthropic
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
+from system_prompts import STANDARD_GAME_PROMPT
 from textarena.core import Agent
 
-# STANDARD_GAME_PROMPT = "You are a competitive game player. Make sure you read the game instructions carefully, and always follow the required format."
-STANDARD_GAME_PROMPT = ""
+# Load API key from .env
+load_dotenv()
 
 conversation_history = []
 
