@@ -1,24 +1,26 @@
 import textarena as ta
-
-from agents.langchain_agent import OpenAILangchainAgent, ClaudeLangchainAgent
-from tools.spelling_bee_tool import find_valid_word
-from system_prompts import SPELLINGBEE_PROMPT
+from agents.langchain_agent import ClaudeLangchainAgent, OpenAILangchainAgent
+from system_prompts import POKER_PROMPT, SPELLINGBEE_PROMPT
 from tools.poker_odds_tool import poker_odds
+from tools.spelling_bee_tool import find_valid_word
 
-model_name = "test agent"
-model_description = "test agent"
+model_name = "test-003"
+model_description = "test-003"
 email = "haresh@techinasia.com"
 
-from poker_lang import POKER_PROMPT
 # Initialize agen
-agent = ClaudeLangchainAgent(model_name="claude-3-5-sonnet-latest", system_prompt=POKER_PROMPT, tools=[poker_odds]) 
+agent = ClaudeLangchainAgent(
+    model_name="claude-3-5-sonnet-latest",
+    system_prompt=POKER_PROMPT,
+    tools=[poker_odds],
+)
 
 
 env = ta.make_online(
-    env_id=["Poker-v0"], 
+    env_id=["Poker-v0"],
     model_name=model_name,
     model_description=model_description,
-    email=email
+    email=email,
 )
 env = ta.wrappers.LLMObservationWrapper(env=env)
 

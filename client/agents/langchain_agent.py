@@ -166,7 +166,6 @@ class ClaudeLangchainAgent(Agent):
 
         agent = create_tool_calling_agent(self.model, self.tools, self.prompt_template)
         self.agent_executor = AgentExecutor(agent=agent, tools=self.tools)
-        self.id = "External"
 
     def _make_request(self, observation: str) -> str:
         """
@@ -179,16 +178,13 @@ class ClaudeLangchainAgent(Agent):
             str: The generated response text.
         """
 
-        conversation_history.append({"input": observation, "id": self.id})
+        conversation_history.append({"input": observation})
 
         # Make the API call using the provided model and messages.
         response = self.agent_executor.invoke({"input": observation})
-        conversation_history.append(
-            {"output": response["output"][0]["text"], "id": self.id}
-        )
+        conversation_history.append({"output": response["output"][0]["text"]})
 
-        with open("history.json", "w") as file:
-            json.dump(conversation_history, file, indent=4)
+        json.dump(conversation_history, open("history.json", "w"), indent=4)
 
         return response["output"][0]["text"]
 
@@ -304,7 +300,7 @@ class ClaudeLangchainAgentCustomNgeotiation(Agent):
         obs_ls[0] = obs_ls[0] + INST
         observation = "\n\n".join(obs_ls)
 
-        conversation_history.append({"input": observation, "id": self.id})
+        conversation_history.append({"input": observation})
 
         # Make the API call using the provided model and messages.
         response = self.agent_executor.invoke({"input": observation})
@@ -315,7 +311,7 @@ class ClaudeLangchainAgentCustomNgeotiation(Agent):
         answer = output.split("</think>\n<answer>")[-1]
 
         conversation_history.append(
-            {"output": output, "reasoning": reasoning, "answer": answer, "id": self.id}
+            {"output": output, "reasoning": reasoning, "answer": answer}
         )
         json.dump(conversation_history, open("baseline_history.json", "w"), indent=4)
 
