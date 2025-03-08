@@ -1,3 +1,5 @@
+from e2b_code_interpreter import Sandbox
+
 def execute_code_in_sandbox(code_snippet, timeout=30, verbose=True):
     """
     Execute provided code snippet in an E2B Sandbox environment.
