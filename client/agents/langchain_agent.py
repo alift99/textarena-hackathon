@@ -291,8 +291,8 @@ class ClaudeLangchainAgentCustom(Agent):
         # Make the API call using the provided model and messages.
         response = self.agent_executor.invoke({"input": observation})
         output = response["output"][0]["text"]
-        reasoning = output.split("</think>\n<answer>")[0]
-        answer = output.split("</think>\n<answer>")[-1]
+        reasoning = output.split("<answer>")[0]
+        answer = output.split("<answer>")[-1]
         conversation_history.append(
             {"output": output, "reasoning": reasoning, "answer": answer}
         )
