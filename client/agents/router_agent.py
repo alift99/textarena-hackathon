@@ -78,6 +78,7 @@ class RouterAgent(Agent):
 
         # Extract the name of the selected agent
         selected_agent_name = extract_first_bracketed(response.content)
+        print(f'Selected agent: {selected_agent_name}')
 
         # Get agent/model
         selected_agent = self.models.get(selected_agent_name)

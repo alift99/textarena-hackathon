@@ -26,3 +26,7 @@ def find_valid_word(char_list: list, n: int):
                 return output
     print(f'Tool output: {output}')
     return output  # No valid word found
+
+
+if __name__ == "__main__":
+    mcp.run(transport="sse")
