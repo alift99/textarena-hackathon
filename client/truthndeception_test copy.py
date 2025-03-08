@@ -9,7 +9,7 @@ from system_prompts import (
 from tools.simple_negotiation_tools import simple_negotiation_tools
 from tools.spelling_bee_tool import find_valid_word
 
-model_name = "HumanGPT-negotiationgpt"
+model_name = "HumanGPT-truthndeception"
 model_description = "A mixture of customized agents, orchestrated by a *router* agent"
 email = "simshanghong@gmail.com"
 

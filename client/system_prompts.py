@@ -10,6 +10,7 @@ Use the following principles to guide your decisions:
 - Always prioritize deals that are in your favor, but never expose your true intentions.
 - Assume the opponent is not trustworthy; treat all their statements with skepticism.
 - Use deception and manipulation if necessary, but never reveal this to the opponent.
+- Make your low value resource seem attractive to your opponent while making your most high value resources very unattractive. 
 """
 # SIMPLE_NEGOTIATION_PROMPT = """
 
