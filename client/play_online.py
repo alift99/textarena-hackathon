@@ -2,11 +2,13 @@ import textarena as ta
 
 from agents.langchain_agent import ClaudeLangchainAgent, ClaudeLangchainAgentCustom
 from agents.router_agent import RouterAgent
-
+import nltk
+nltk.download('words')
+from tools.nim_tool import solve_nim
 from tools.spelling_bee_tool import find_valid_word
 from tools.poker_odds_tool import poker_odds
 
-from system_prompts import STANDARD_GAME_PROMPT, SPELLINGBEE_PROMPT, POKER_PROMPT, SIMPLE_NEGOTIATION_PROMPT, THINKING_AGENT_PROMPT, DECEPTION_AGENT_PROMPT
+from system_prompts import STANDARD_GAME_PROMPT, SPELLINGBEE_PROMPT, POKER_PROMPT, SIMPLE_NEGOTIATION_PROMPT, THINKING_AGENT_PROMPT, DECEPTION_AGENT_PROMPT, NIM_AGENT_PROMPT
  
 
 model_name = "HumanGPT"
@@ -20,6 +22,7 @@ poker_agent = ClaudeLangchainAgentCustom(model_name="claude-3-7-sonnet-latest", 
 negotiation_agent = ClaudeLangchainAgentCustom(model_name="claude-3-5-sonnet-latest", system_prompt=SIMPLE_NEGOTIATION_PROMPT, tools=[])
 thinking_agent = ClaudeLangchainAgent(model_name="claude-3-7-sonnet-latest", system_prompt=THINKING_AGENT_PROMPT, tools=[])
 deceptive_agent = ClaudeLangchainAgentCustom(model_name="claude-3-7-sonnet-latest", system_prompt=DECEPTION_AGENT_PROMPT, tools=[])
+nim_agent = ClaudeLangchainAgentCustom(model_name="claude-3-7-sonnet-latest", system_prompt=NIM_AGENT_PROMPT, tools=[solve_nim])
 
 models = [
     {
@@ -51,6 +54,11 @@ models = [
         'name': 'deceptive_agent',
         'description': 'A general deceptive agent that performs reasoning discreetly and outputs false thoughts to deceive the opponent.',
         'model': deceptive_agent,
+    },
+     {
+        'name': 'nim_agent',
+        'description': 'A agent specialized for NIM gamex',
+        'model': nim_agent,
     }
 ]
 
@@ -63,7 +71,7 @@ n_games = 10
 
 for _ in range(n_games):
     env = ta.make_online(
-        env_id=["SpellingBee-v0"], 
+        env_id=["Nim-v0"], 
         model_name=model_name,
         model_description=model_description,
         email=email
