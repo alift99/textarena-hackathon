@@ -3,17 +3,16 @@ from dotenv import load_dotenv
 
 import textarena as ta
 
-from langchain_agent import OpenAILangchainAgent
+from langchain_agent import OpenAILangchainAgent, ClaudeLangchainAgent
 
 
 # Load API key from .env
 load_dotenv()
-os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
 
 # Initialize agents
 agents = {
     # 0: OpenAIReactAgent(model_name="gpt-4o-mini"),
-    0: ta.agents.OpenAIAgent(model_name="gpt-4o-mini"),
+    0: ClaudeLangchainAgent(model_name="claude-3-5-sonnet-latest"),
     1: ta.agents.OpenAIAgent(model_name="gpt-4o-mini"),
 }
 
