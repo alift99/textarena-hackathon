@@ -1,10 +1,9 @@
 import os
 from dotenv import load_dotenv
-import json
 
 import textarena as ta
 
-from react_agent import OpenAIReactAgent, conversation_history
+from langchain_agent import OpenAILangchainAgent
 
 
 # Load API key from .env
