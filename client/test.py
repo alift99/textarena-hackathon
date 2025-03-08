@@ -1,7 +1,7 @@
 import textarena as ta
 
 from dotenv import load_dotenv
-from agents.langchain_agent import OpenAILangchainAgent, ClaudeLangchainAgent
+from agents.langchain_agent import OpenAILangchainAgent, ClaudeLangchainAgent, ClaudeLangchainAgentCustom
 from agents.router_agent import RouterAgent
 
 from tools.spelling_bee_tool import find_valid_word
@@ -11,7 +11,7 @@ from system_prompts import SPELLINGBEE_PROMPT, STANDARD_GAME_PROMPT, SIMPLE_NEGO
 
 general_agent = ClaudeLangchainAgent(model_name="claude-3-5-sonnet-latest", system_prompt=STANDARD_GAME_PROMPT, tools=[])
 spellingbee_agent = ClaudeLangchainAgent(model_name="claude-3-5-sonnet-latest", system_prompt=SPELLINGBEE_PROMPT, tools=[find_valid_word])
-simplenegotiation_agent = ClaudeLangchainAgent(model_name="claude-3-5-sonnet-latest", system_prompt=SIMPLE_NEGOTIATION_PROMPT, tools=simple_negotiation_tools)
+simplenegotiation_agent = ClaudeLangchainAgentCustom(model_name="claude-3-5-sonnet-latest", system_prompt=SIMPLE_NEGOTIATION_PROMPT, tools=simple_negotiation_tools)
 
 models = [
     {
@@ -31,11 +31,11 @@ models = [
     }
 ]
 
+
 agent = RouterAgent(
     model_name="claude-3-5-sonnet-latest",
     models=models,
 )
-
 
 
 # Load API key from .env
@@ -44,8 +44,8 @@ load_dotenv()
 # Initialize agents
 agents = {
     # 0: OpenAIReactAgent(model_name="gpt-4o-mini"),
-    0: agent,
-    1: general_agent,
+    0: general_agent,
+    1: agent,
 }
 
 # Initialize environment from subset and wrap it

@@ -4,6 +4,7 @@ import random
 from typing import TypedDict
 import numpy as np
 from scipy.optimize import linprog
+import re
 
 class Trade(TypedDict):
     offer: Dict[str, int]  # Mapping of resource name to quantity
@@ -34,6 +35,54 @@ def resource_evaluator(trade: Trade, accepted: bool) -> str:
 
     return f"Updated opponent value estimations: {opponent_values}"
 
+@tool
+def compute_offer_value(offer: str, value: Dict[str, int]) -> int:
+    """
+    Computes the value of a trade offer.
+
+    The offer must be in the format: '[Offer: <your resources> -> <their resources>]'
+    Example: '[Offer: 2 Wheat, 1 Ore -> 3 Sheep]'
+
+    Args:
+        offer (str): The trade offer string.
+        value (Dict[str, int]): A dictionary mapping resource names to their values.
+
+    Returns:
+        int: The net value gained from the trade (positive means profit, negative means loss).
+    """
+    pattern = r"^\[Offer: (.*?) -> (.*?)\]$"
+    match = re.match(pattern, offer)
+
+    if not match:
+        raise ValueError("Invalid offer format. Expected '[Offer: <your resources> -> <their resources>]'.")
+    
+    your_resources = parse_resources(match.group(1))
+    their_resources = parse_resources(match.group(2))
+
+    your_value = sum(value[res] * amount for res, amount in your_resources.items() if res in value)
+    their_value = sum(value[res] * amount for res, amount in their_resources.items() if res in value)
+    print(f"{your_value - their_value}")
+    return their_value - your_value
+
+def parse_resources(resource_str: str) -> Dict[str, int]:
+    """
+    Parses a resource string into a dictionary.
+
+    Example: "2 Wheat, 1 Ore" -> {"Wheat": 2, "Ore": 1}
+    """
+    resources = {}
+    if resource_str.strip():
+        items = resource_str.split(',')
+        for item in items:
+            parts = item.strip().split(' ', 1)
+            if len(parts) == 2:
+                amount, resource = parts
+                resources[resource] = int(amount)
+    return resources
+
+
+
 simple_negotiation_tools = [
-    resource_evaluator
+    resource_evaluator, 
+    compute_offer_value
 ]
