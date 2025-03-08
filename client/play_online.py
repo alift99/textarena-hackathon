@@ -18,7 +18,7 @@ email = "alifdaffa.main@gmail.com"
 
 general_agent = ClaudeLangchainAgent(model_name="claude-3-5-sonnet-latest", system_prompt=STANDARD_GAME_PROMPT, tools=[])
 spellingbee_agent = ClaudeLangchainAgent(model_name="claude-3-5-sonnet-latest", system_prompt=SPELLINGBEE_PROMPT, tools=[find_valid_word])
-poker_agent = ClaudeLangchainAgentCustom(model_name="claude-3-7-sonnet-latest", system_prompt=POKER_PROMPT, tools=[poker_odds])
+poker_agent = ClaudeLangchainAgentCustom(model_name="claude-3-5-sonnet-latest", system_prompt=POKER_PROMPT, tools=[poker_odds])
 negotiation_agent = ClaudeLangchainAgentCustom(model_name="claude-3-5-sonnet-latest", system_prompt=SIMPLE_NEGOTIATION_PROMPT, tools=[])
 thinking_agent = ClaudeLangchainAgent(model_name="claude-3-7-sonnet-latest", system_prompt=THINKING_AGENT_PROMPT, tools=[])
 deceptive_agent = ClaudeLangchainAgentCustom(model_name="claude-3-7-sonnet-latest", system_prompt=DECEPTION_AGENT_PROMPT, tools=[])
