@@ -231,7 +231,7 @@ class ClaudeLangchainAgent(Agent):
         return self._retry_request(observation)
 
 
-class ClaudeLangchainAgentCustomNgeotiation(Agent):
+class ClaudeLangchainAgentCustom(Agent):
     """Agent class using the Anthropic API with LangChain tool_calling_agent to generate responses."""
 
     def __init__(
