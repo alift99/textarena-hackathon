@@ -1,5 +1,5 @@
 from agents.router_agent import RouterAgent
-from agents.langchain_agent import ClaudeLangchainAgent
+from agents.langchain_agent import ClaudeLangchainAgent, ClaudeLangchainAgentCustom
 from tools.spelling_bee_tool import find_valid_word
 from tools.simple_negotiation_tools import simple_negotiation_tools
 from system_prompts import SPELLINGBEE_PROMPT, STANDARD_GAME_PROMPT, SIMPLE_NEGOTIATION_PROMPT
@@ -7,7 +7,7 @@ from system_prompts import SPELLINGBEE_PROMPT, STANDARD_GAME_PROMPT, SIMPLE_NEGO
 
 spellingbee_agent = ClaudeLangchainAgent(model_name="claude-3-5-sonnet-latest", system_prompt=SPELLINGBEE_PROMPT, tools=[find_valid_word])
 general_agent = ClaudeLangchainAgent(model_name="claude-3-5-sonnet-latest", system_prompt=STANDARD_GAME_PROMPT, tools=[])
-simplenegotiation_agent = ClaudeLangchainAgent(model_name="claude-3-5-sonnet-latest", system_prompt=SIMPLE_NEGOTIATION_PROMPT, tools=simple_negotiation_tools)
+simplenegotiation_agent = ClaudeLangchainAgentCustom(model_name="claude-3-5-sonnet-latest", system_prompt=SIMPLE_NEGOTIATION_PROMPT, tools=simple_negotiation_tools)
 
 models = [
     {

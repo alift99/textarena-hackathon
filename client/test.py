@@ -1,15 +1,17 @@
 import textarena as ta
 
+from dotenv import load_dotenv
 from agents.langchain_agent import OpenAILangchainAgent, ClaudeLangchainAgent
 from agents.router_agent import RouterAgent
 
 from tools.spelling_bee_tool import find_valid_word
 
-from system_prompts import STANDARD_GAME_PROMPT, SPELLINGBEE_PROMPT
-
+from tools.simple_negotiation_tools import simple_negotiation_tools
+from system_prompts import SPELLINGBEE_PROMPT, STANDARD_GAME_PROMPT, SIMPLE_NEGOTIATION_PROMPT
 
 general_agent = ClaudeLangchainAgent(model_name="claude-3-5-sonnet-latest", system_prompt=STANDARD_GAME_PROMPT, tools=[])
 spellingbee_agent = ClaudeLangchainAgent(model_name="claude-3-5-sonnet-latest", system_prompt=SPELLINGBEE_PROMPT, tools=[find_valid_word])
+simplenegotiation_agent = ClaudeLangchainAgent(model_name="claude-3-5-sonnet-latest", system_prompt=SIMPLE_NEGOTIATION_PROMPT, tools=simple_negotiation_tools)
 
 models = [
     {
@@ -21,6 +23,11 @@ models = [
         'name': 'spellingbee_agent', 
         'description': 'An agent specialized for spellingbee',
         'model': spellingbee_agent
+    },
+    {   
+        'name': 'simplenegotiation_agent',
+        'description': 'An agent specialized for simple negotiation',
+        'model': simplenegotiation_agent
     }
 ]
 
