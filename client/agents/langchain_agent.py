@@ -10,12 +10,11 @@ from langchain_openai import ChatOpenAI
 from langchain.agents import AgentExecutor, create_tool_calling_agent
 from langchain_core.prompts import ChatPromptTemplate
 
+from system_prompts import STANDARD_GAME_PROMPT
+
 
 # Load API key from .env
 load_dotenv()
-
-
-STANDARD_GAME_PROMPT = "You are a competitive game player. Make sure you read the game instructions carefully, and always follow the required format."
 
 conversation_history = []
 

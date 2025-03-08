@@ -14,7 +14,7 @@ def find_valid_word(char_list: list, n: int):
     print(f'SpellingBee tool called: ```char_list: {char_list}, n: {n}```')
 
     output = []
-    n_options = 7
+    n_options = max(1, 10 - n)
     for perm in product(char_list, repeat=n):  # Generate permutations of length n
         word = ''.join(perm)
         if word in valid_words:

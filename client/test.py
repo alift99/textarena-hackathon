@@ -1,10 +1,33 @@
 import textarena as ta
 
-from dotenv import load_dotenv
-from langchain_agent import OpenAILangchainAgent, ClaudeLangchainAgent, ClaudeLangchainAgentCustom
+from agents.langchain_agent import OpenAILangchainAgent, ClaudeLangchainAgent
+from agents.router_agent import RouterAgent
+
 from tools.spelling_bee_tool import find_valid_word
-from tools.simple_negotiation_tools import simple_negotiation_tools
-from system_prompts import SPELLINGBEE_PROMPT
+
+from system_prompts import STANDARD_GAME_PROMPT, SPELLINGBEE_PROMPT
+
+
+general_agent = ClaudeLangchainAgent(model_name="claude-3-5-sonnet-latest", system_prompt=STANDARD_GAME_PROMPT, tools=[])
+spellingbee_agent = ClaudeLangchainAgent(model_name="claude-3-5-sonnet-latest", system_prompt=SPELLINGBEE_PROMPT, tools=[find_valid_word])
+
+models = [
+    {
+        'name': 'general_agent',
+        'description': 'An agent for general purpose',
+        'model': general_agent
+    }, 
+    {
+        'name': 'spellingbee_agent', 
+        'description': 'An agent specialized for spellingbee',
+        'model': spellingbee_agent
+    }
+]
+
+agent = RouterAgent(
+    model_name="claude-3-5-sonnet-latest",
+    models=models,
+)
 
 
 
@@ -14,8 +37,8 @@ load_dotenv()
 # Initialize agents
 agents = {
     # 0: OpenAIReactAgent(model_name="gpt-4o-mini"),
-    1: ClaudeLangchainAgentCustom(model_name="claude-3-5-sonnet-latest"),
-    0: ClaudeLangchainAgentCustom(model_name="claude-3-5-sonnet-latest", tools=simple_negotiation_tools),
+    0: agent,
+    1: general_agent,
 }
 
 # Initialize environment from subset and wrap it
