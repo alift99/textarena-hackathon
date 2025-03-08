@@ -1,4 +1,5 @@
 import os
+from dotenv import load_dotenv
 import time
 from typing import Optional, List
 import json
@@ -8,6 +9,10 @@ from langchain_anthropic import ChatAnthropic
 from langchain_openai import ChatOpenAI
 from langchain.agents import AgentExecutor, create_tool_calling_agent
 from langchain_core.prompts import ChatPromptTemplate
+
+
+# Load API key from .env
+load_dotenv()
 
 
 STANDARD_GAME_PROMPT = "You are a competitive game player. Make sure you read the game instructions carefully, and always follow the required format."
@@ -187,7 +192,6 @@ class ClaudeLangchainAgent(Agent):
                 "input": observation
             }
         )
-        print(response)
         conversation_history.append(('output', response['output'][0]['text']))
 
         with open("history.json", "w") as file:
