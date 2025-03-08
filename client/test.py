@@ -37,7 +37,7 @@ agents = {
 }
 
 # Initialize environment from subset and wrap it
-env = ta.make(env_id="SpellingBee-v0")
+env = ta.make(env_id="SimpleNegotiation-v0")
 env = ta.wrappers.LLMObservationWrapper(env=env)
 env = ta.wrappers.SimpleRenderWrapper(
     env=env,
