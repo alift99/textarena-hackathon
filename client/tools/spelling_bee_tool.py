@@ -1,6 +1,6 @@
 from itertools import product
 import nltk
-nltk.download('words')
+# nltk.download('words')
 from nltk.corpus import words
 from langchain_core.tools import tool
 
@@ -14,10 +14,11 @@ def find_valid_word(char_list: list, n: int):
     print(f'SpellingBee tool called: ```char_list: {char_list}, n: {n}```')
 
     output = []
-    n_options = max(1, 10 - n)
-    for perm in product(char_list, repeat=n):  # Generate permutations of length n
-        word = ''.join(perm)
-        if word in valid_words:
+    n_options = 10
+    # Iterate over valid_words and check if the word satisfies the conditions
+    for word in valid_words:
+        # Check if the word has exactly 'n' characters and only uses characters from 'char_list'
+        if len(word) == n and all(char in char_list for char in word):
             output.append(word)
             if len(output) >= n_options:
                 print(f'Tool output: {output}')
